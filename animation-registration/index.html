@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            border: 10px solid black;
+            width: 1020px; 
+        }
+        .image-container {
+            width: 150px;
+            height: 225px; /* 2:3 Aspect ratio */
+            border: 10px solid black;
+            margin: 0px;
+            overflow: hidden;
+
+        }
+        .image-container img {
+            height: 225px;
+            overflow: hidden;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination button {
+            margin: 5px;
+            padding: 10px 20px;
+            background-color: white;
+            border: 1px solid black;
+            cursor: pointer;
+        }
+        .pagination button.active {
+            background-color: black !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery" id="gallery"></div>
+    <div class="pagination" id="pagination"></div>
+    <div style="text-align: center; margin-top: 20px;">
+        <button onclick="toggleImages()">Toggle Borders Only</button>
+    </div>
+
+    <script>
+        // List of 60 image URLs (You can replace these with your own image URLs)
+        const images = Array.from({length: 60}, (_, i) =>
+             {
+                let str = `000${i+1}`;
+                str = str.substring(str.length - 4);
+                return `file://c:/projects/exploration/animation-registration/images/jumpingjacks/frame${str}.png`
+             }
+        );
+
+        // Number of images per page
+        const imagesPerPage = 12;
+        let currentPage = 1;
+        let showBordersOnly = false;
+
+        // Function to render the gallery for a specific page
+        function renderGallery(page) {
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = '';
+
+            const start = (page - 1) * imagesPerPage;
+            const end = start + imagesPerPage;
+            const imagesToShow = images.slice(start, end);
+
+            imagesToShow.forEach(imgSrc => {
+                const imageContainer = document.createElement('div');
+                imageContainer.classList.add('image-container');
+
+                if (!showBordersOnly) {
+                    const img = document.createElement('img');
+                    img.src = imgSrc;
+                    imageContainer.appendChild(img);
+                }
+
+                gallery.appendChild(imageContainer);
+            });
+        }
+
+        // Function to render pagination buttons
+        function renderPagination() {
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+
+            const totalPages = Math.ceil(images.length / imagesPerPage);
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                button.onclick = () => {
+                    currentPage = i;
+                    renderGallery(currentPage);
+                    
+                    highlightCurrentPage()
+                };
+                pagination.appendChild(button);
+            }
+            highlightCurrentPage();
+        }
+
+        function highlightCurrentPage() {
+            const buttons = document.querySelectorAll('.pagination button');
+            buttons.forEach((button, index) => {
+                if (index + 1 === currentPage) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+
+
+
+        // Function to toggle the display of images or just borders
+        function toggleImages() {
+            showBordersOnly = !showBordersOnly;
+            renderGallery(currentPage);
+        }
+
+        // Initial rendering
+        renderGallery(currentPage);
+        renderPagination();
+    </script>
+</body>
+</html>
