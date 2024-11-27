@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "audio-buffer": "^5.0.0",
+    "audio-buffer-utils": "^5.1.2",
+    "speaker": "^0.5.5"
+  }
+}
