@@ -3,17 +3,26 @@ let readline = require("readline");
 let { Player } = require("./player");
 let { eventDefinitions } = require("./eventDefinitions");
 const { dir } = require("console");
+const { 
+      getFeelingFileMap,
+      playPreferredFeelings,
+      findFileByFeeling
+    } = require('../music/soundtrack')
+
+
+const { Logger } = require('./logger')
+const logger = new Logger();
 
 let xMazeSize = 50;
 let yMazeSize = 15;
 
-function navigateMaze(mazeGenerator) {
+function navigateMaze(mazeGenerator, soundtrackController) {
     let maze = mazeGenerator(xMazeSize, yMazeSize); // Generate initial maze
     let playerPosition = { x: 1, y: 1 }; // Starting position
     let visited = new Set(); // Track visited cells
     let seen = new Set(); // Track cells that have been "seen"
     let stairs = []; // Stairs positions
-    let player = new Player(); // Create a new player instance
+    let player = new Player(soundtrackController); // Create a new player instance
     let events = {}; // Random events
 
     // Helper to ensure a valid maze is generated
@@ -151,7 +160,7 @@ function navigateMaze(mazeGenerator) {
                 seen.clear(); // Clear seen cells
                 events = {}; // Clear events
                 placeStairs(); // Place new stairs
-                placeEvents( Math.floor(x * y / 5.0) ); // Place new events
+                placeEvents( Math.floor(xMazeSize * yMazeSize / 5.0) ); // Place new events
                 markSeen(playerPosition.x, playerPosition.y); // Mark start as seen
             } else {
                 player.move({
@@ -211,6 +220,40 @@ function navigateMaze(mazeGenerator) {
     renderMaze();
 }
 
+// Start the sound track
+
 // Example usage:
-// Replace generateMaze with your own implementation
-navigateMaze(generateMaze);
+// Replace '/path/to/folder' with the path to your folder
+(async () => {
+    const folderPath = 'c:/projects/MusicGPT/x86_64-pc-windows-msvc';
+    try {
+        const feelingMap = await getFeelingFileMap(folderPath);
+        //console.log('Feeling to File Map:', Object.fromEntries(feelingMap));
+
+        const filteredKeys = Array.from(feelingMap.keys()).filter(key =>
+          ['awe', 'nostalgia', 'curious', 'bored', 'serenity', 'walking__ambling', 'unfocused']
+              .some(substring => key.includes(substring))
+      );
+      
+        //console.log(filteredKeys)
+
+        const soundtrackController = await playPreferredFeelings(feelingMap, filteredKeys, logger);
+
+  /*      // Example event triggers
+        setTimeout(() => {
+            controller.playCustomTrack(findFileByFeeling(feelingMap, 'sadness'), 60); // Play custom track for 60 seconds
+        }, 10000); // Trigger after 10 seconds
+    
+        setTimeout(() => {
+            controller.returnToBaseline(); // Interrupt custom playback and return to baseline
+        }, 30000); // Trigger after 30 seconds
+*/    
+  
+        // Example usage:
+        // Replace generateMaze with your own implementation
+        navigateMaze(generateMaze, soundtrackController);
+
+      } catch (err) {
+        console.error('Error:', err);
+    }
+})();

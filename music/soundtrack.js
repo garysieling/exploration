@@ -41,15 +41,15 @@ async function getFeelingFileMap(folderPath) {
  * @returns {Promise<AudioBuffer>} - Decoded audio buffer.
  */
 function decodeWavFile(filePath) {
-  console.log(`Decoding file: ${filePath}`);
+  //console.log(`Decoding file: ${filePath}`);
   return new Promise((resolve, reject) => {
       const fileStream = fs.createReadStream(filePath);
       const reader = new wav.Reader();
 
       reader.on('format', format => {
-          console.log(
+          /*console.log(
               `File format - Channels: ${format.channels}, Sample Rate: ${format.sampleRate}, Bit Depth: ${format.bitDepth}`
-          );
+          );*/
 
           const channelData = Array(format.channels).fill().map(() => []);
           const sampleBytes = format.bitDepth / 8;
@@ -80,7 +80,7 @@ function decodeWavFile(filePath) {
           });
 
           reader.on('end', () => {
-              console.log(`Finished decoding file: ${filePath}`);
+              //console.log(`Finished decoding file: ${filePath}`);
               const audioBuffer = audioContext.createBuffer(
                   format.channels,
                   channelData[0].length,
@@ -97,7 +97,7 @@ function decodeWavFile(filePath) {
       });
 
       reader.on('error', error => {
-          console.error(`Error decoding file: ${filePath}`, error);
+          //console.error(`Error decoding file: ${filePath}`, error);
           reject(error);
       });
 
@@ -137,84 +137,131 @@ async function playAudioBuffer(audioBuffer, overlapDuration = 5) {
       source.onended = resolve;
   });
 }
+
 /**
- * Plays preferred feelings with the ability to switch to a custom track and return to baseline.
+ * Finds the first file where the key contains the provided feeling name.
+ * @param {Map<string, string>} feelingFileMap - Map of feelings to file paths.
+ * @param {string} feelingName - The feeling name to search for in the keys.
+ * @returns {string | null} - The file path of the first matching key, or null if no match is found.
+ */
+function findFileByFeeling(feelingFileMap, feelingName) {
+  for (const [key, filePath] of feelingFileMap.entries()) {
+      if (key.includes(feelingName)) {
+          return filePath;
+      }
+  }
+  return null; // Return null if no match is found
+}/**
+ * Plays preferred feelings with proper looping and seamless transitions.
  * @param {Map<string, string>} feelingFileMap - Map of feelings to file paths.
  * @param {string[]} preferredFeelings - Baseline list of preferred feelings.
+ * @param {object} logger - Logger object with a `log` method.
  * @returns {object} - Controller object with methods to handle playback events.
  */
-async function playPreferredFeelings(feelingFileMap, preferredFeelings) {
-  let isPlayingCustom = false;
-  let returnToBaselineTimeout = null;
-
+async function playPreferredFeelings(feelingFileMap, preferredFeelings, logger = console) {
   const filteredFiles = Array.from(feelingFileMap.entries())
       .filter(([feeling]) => preferredFeelings.includes(feeling))
       .map(([, filePath]) => filePath);
 
   if (filteredFiles.length === 0) {
-      console.log('No matching feelings found.');
+      logger.log('No matching feelings found.');
       return;
   }
 
   let currentIndex = 0;
+  let isPlayingBaseline = true;
+  let currentSource = null; // Active audio source
+  let currentlyPlayingPath = null; // Path of the currently playing track
+
+/**
+ * Stops the currently playing audio source, if any.
+ * @param {number} delay - Time in milliseconds to delay stopping the audio.
+ */
+function stopCurrentPlayback(delay = 50) {
+  if (currentSource) {
+      setTimeout(() => {
+          if (currentSource) { // Additional null check
+              currentSource.stop();
+              currentSource = null;
+          }
+      }, delay);
+  }
+}
 
   /**
-   * Plays the next file in the baseline list.
+   * Plays the next track from the baseline list, looping back to the start as needed.
    */
-  async function playNextBaselineTrack() {
-      if (isPlayingCustom) return; // Skip if custom playback is active
+  async function playBaselineTrack() {
+      if (!isPlayingBaseline) return;
 
       const currentFile = filteredFiles[currentIndex];
-      const nextFile = filteredFiles[(currentIndex + 1) % filteredFiles.length];
-      currentIndex = (currentIndex + 1) % filteredFiles.length;
+      if (currentlyPlayingPath === currentFile) {
+          logger.log(`Already playing baseline track: ${currentFile}`);
+          return;
+      }
 
-      console.log(`Now playing (baseline): ${currentFile}`);
+      currentIndex = (currentIndex + 1) % filteredFiles.length; // Loop back to the start
+
+      logger.log(`Now playing (baseline): ${currentFile}`);
       const currentBuffer = await decodeWavFile(currentFile);
-      const nextBuffer = await decodeWavFile(nextFile);
 
-      const overlapDuration = 5;
-      await playAudioBuffer(currentBuffer, overlapDuration);
-
-      // Schedule the next baseline track
-      setTimeout(() => {
-          if (!isPlayingCustom) playNextBaselineTrack();
-      }, 25000); // Play for 30 seconds minus 5-second overlap
+      stopCurrentPlayback(50); // Fade out and stop the previous track
+      currentSource = audioContext.createBufferSource();
+      currentSource.buffer = currentBuffer;
+      currentSource.connect(audioContext.destination);
+      currentSource.start();
+      currentlyPlayingPath = currentFile;
+      currentSource.onended = playBaselineTrack; // Automatically play the next track when done
   }
 
   /**
-   * Switches to a custom track.
-   * @param {string} trackPath - Path to the custom track file.
+   * Switches to a custom track based on a feeling and returns to the baseline after a delay.
+   * @param {string} feeling - The feeling name to look up in the map.
    * @param {number} delay - Time in seconds before returning to baseline.
    */
-  async function playCustomTrack(trackPath, delay) {
-      isPlayingCustom = true;
-      clearTimeout(returnToBaselineTimeout);
+  async function playCustomTrack(feeling, delay) {
+      const trackPath = findFileByFeeling(feelingFileMap, feeling);
+      if (!trackPath) {
+          logger.log(`No track found for feeling: ${feeling}`);
+          return;
+      }
 
-      console.log(`Switching to custom track: ${trackPath}`);
+      if (currentlyPlayingPath === trackPath) {
+          logger.log(`Already playing custom track: ${trackPath}`);
+          return;
+      }
+
+      logger.log(`Switching to custom track for feeling "${feeling}": ${trackPath}`);
+      isPlayingBaseline = false;
+
+      stopCurrentPlayback(50); // Stop the previous track after a short delay
       const customBuffer = await decodeWavFile(trackPath);
-      await playAudioBuffer(customBuffer, 5); // Custom track with fade-in/out
+      currentSource = audioContext.createBufferSource();
+      currentSource.buffer = customBuffer;
+      currentSource.connect(audioContext.destination);
+      currentSource.start();
+      currentlyPlayingPath = trackPath;
 
-      returnToBaselineTimeout = setTimeout(() => {
-          console.log('Returning to baseline list.');
-          isPlayingCustom = false;
-          playNextBaselineTrack();
+      // Schedule return to baseline after the custom track finishes
+      setTimeout(() => {
+          logger.log('Returning to baseline list.');
+          isPlayingBaseline = true;
+          playBaselineTrack();
       }, delay * 1000); // Delay in milliseconds
   }
 
   /**
-   * Immediately returns to the baseline playlist.
+   * Immediately stops any playback and returns to the baseline playlist.
    */
   function returnToBaseline() {
-      if (!isPlayingCustom) return;
-
-      console.log('Interrupting custom playback and returning to baseline.');
-      clearTimeout(returnToBaselineTimeout);
-      isPlayingCustom = false;
-      playNextBaselineTrack();
+      logger.log('Interrupting current playback and returning to baseline.');
+      isPlayingBaseline = true;
+      stopCurrentPlayback(50); // Stop current track
+      playBaselineTrack(); // Resume baseline
   }
 
   // Start the baseline playback loop
-  playNextBaselineTrack();
+  playBaselineTrack();
 
   // Return the controller with event methods
   return {
@@ -223,25 +270,15 @@ async function playPreferredFeelings(feelingFileMap, preferredFeelings) {
   };
 }
 
-/*
-* Finds the first file where the key contains the provided feeling name.
-* @param {Map<string, string>} feelingFileMap - Map of feelings to file paths.
-* @param {string} feelingName - The feeling name to search for in the keys.
-* @returns {string | null} - The file path of the first matching key, or null if no match is found.
-*/
-function findFileByFeeling(feelingFileMap, feelingName) {
-   for (const [key, filePath] of feelingFileMap.entries()) {
-       if (key.includes(feelingName)) {
-           return filePath;
-       }
-   }
-   return null; // Return null if no match is found
+module.exports = {
+  getFeelingFileMap,
+  playPreferredFeelings,
+  findFileByFeeling
 }
-
 
 // Example usage:
 // Replace '/path/to/folder' with the path to your folder
-(async () => {
+/*(async () => {
     const folderPath = 'c:/projects/MusicGPT/x86_64-pc-windows-msvc';
     try {
         const feelingMap = await getFeelingFileMap(folderPath);
@@ -269,4 +306,4 @@ function findFileByFeeling(feelingFileMap, feelingName) {
       } catch (err) {
         console.error('Error:', err);
     }
-})();
+})();*/

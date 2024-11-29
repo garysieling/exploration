@@ -57,7 +57,8 @@ function setBeyondMazeAt(maze, currentX, currentY, proposedX, proposedY, newValu
 }
 
 class Player {
-  constructor(maxHealth = 100, maxHappiness = 100, maxFrustration = 100) {
+  constructor(soundtrackController, maxHealth = 100, maxHappiness = 100, maxFrustration = 100) {
+    this.soundtrackController = soundtrackController;
       // Internal state storage
       this._attributes = {
           health: 100,
@@ -156,11 +157,16 @@ class Player {
         const value = getMazeAt(maze, x, y);
         if (value === 0) {
           if (lookAhead === 1) {
+
+            this.soundtrackController.playCustomTrack('anger', 10);       
+
             this.lastMessage = `You kicked the wall and pushed it forward!!! ${lookAhead} ${value}`;
             maze[y][x] = 1;
             setBeyondMazeAt(maze, this.x, this.y, x, y, 0);
             this.health = this.health - 10
           } else {
+            this.soundtrackController.playCustomTrack('fear', 10);       
+            
             this.lastMessage = `You kicked the wall but it doesn't move! ${lookAhead} ${value}`
             this.health = this.health - 25
           }
@@ -183,7 +189,7 @@ class Player {
       this.health = this.health - 1
     } else {
       this.lastMoveWasFrustrating = true;
-      this.frustration = this.frustration - 1
+      //this.frustration = this.frustration - 1
       this.health = this.health + 1
       this.lastMessage = `You moved ${direction} and gained 1 health. `;
     }
@@ -194,16 +200,19 @@ class Player {
   updateLevel(newLevel) {
       this.level = newLevel;
       this.lastMessage = `You advanced to level ${newLevel}.`;
+      this.soundtrackController.playCustomTrack('excitement', 10);       
   }
 
   takeDamage(amount) {
       this.health = Math.max(this.health - amount, 0);
       this.lastMessage = `You took ${amount} damage. Health is now ${this.health}.`;
+      this.soundtrackController.playCustomTrack('terrot', 10);       
   }
 
   addItem(item) {
       this.inventory.push(item);
       this.lastMessage = `You found ${item}!`;
+      this.soundtrackController.playCustomTrack('curiosity', 10);       
   }
 
   setMessage(message) {
