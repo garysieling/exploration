@@ -1,0 +1,290 @@
+[
+  {
+    "name": "Joy",
+    "description": "Upbeat music often brings happiness and energy.",
+    "instrumentation": "Strings and brass in bright harmonies, woodwinds for playful accents.",
+    "tempo": "Fast, lively; Allegro in 4/4 time.",
+    "volume": "Starts moderately loud and builds to a bright, consistent volume.",
+    "key": "Major keys, often C major or G major."
+  },
+  {
+    "name": "Excitement",
+    "description": "Fast tempos or dynamic rhythms can create a sense of thrill or anticipation.",
+    "instrumentation": "Percussion and brass for bold rhythms; strings for rapid movement.",
+    "tempo": "Very fast; Presto in 6/8 or 4/4 with syncopation.",
+    "volume": "Loud throughout, with occasional dynamic dips for contrast.",
+    "key": "Major or minor keys, with unexpected modulations."
+  },
+  {
+    "name": "Love",
+    "description": "Romantic or tender melodies can evoke feelings of affection and warmth.",
+    "instrumentation": "Strings for sweeping melodies, harp or piano for delicate accompaniment.",
+    "tempo": "Moderate; Andante or Adagio in 4/4.",
+    "volume": "Soft to moderate, with crescendos to emphasize emotional moments.",
+    "key": "Major keys like D major or A major, or tender minor keys like E minor."
+  },
+  {
+    "name": "Nostalgia",
+    "description": "Certain songs or melodies can transport us to fond memories.",
+    "instrumentation": "Solo instruments like violin or piano, subtle strings for depth.",
+    "tempo": "Moderate to slow; Rubato in 3/4 or 6/8 time for a dreamy quality.",
+    "volume": "Soft, with gentle swells in dynamics.",
+    "key": "Minor keys with major intervals, like E minor with G major transitions."
+  },
+  {
+    "name": "Inspiration",
+    "description": "Uplifting music can motivate and energize us.",
+    "instrumentation": "Brass and strings for soaring melodies; full orchestral support.",
+    "tempo": "Moderate to fast; Allegro in 4/4.",
+    "volume": "Starts soft and builds to a powerful, triumphant peak.",
+    "key": "Major keys like C major or Bb major."
+  },
+  {
+    "name": "Sadness",
+    "description": "Melancholic tunes or lyrics can bring feelings of sorrow or longing.",
+    "instrumentation": "Solo cello or violin, soft woodwinds, low strings for depth.",
+    "tempo": "Slow; Largo or Adagio in 4/4.",
+    "volume": "Soft, with subtle crescendos for emotional expression.",
+    "key": "Minor keys, often D minor or A minor."
+  },
+  {
+    "name": "Anger",
+    "description": "Intense, heavy music can express frustration or rage.",
+    "instrumentation": "Percussion for aggressive rhythms, brass for power, low strings for intensity.",
+    "tempo": "Fast; Vivace or Allegro in 4/4.",
+    "volume": "Consistently loud, with sudden bursts for emphasis.",
+    "key": "Minor keys, often G minor or C minor."
+  },
+  {
+    "name": "Fear",
+    "description": "Haunting or eerie compositions can evoke feelings of tension or dread.",
+    "instrumentation": "Low strings, dissonant brass, eerie woodwinds like clarinets or flutes.",
+    "tempo": "Varied; Slow, free, and unpredictable; Rubato in 4/4 or 5/4.",
+    "volume": "Soft with sudden loud bursts for shock effect.",
+    "key": "Dissonant minor keys, like B minor with chromatic elements."
+  },
+  {
+    "name": "Bittersweetness",
+    "description": "A blend of joy and sadness, often found in reflective or nostalgic pieces.",
+    "instrumentation": "Solo violin or oboe, gentle strings, and piano.",
+    "tempo": "Moderate; Andante or Moderato in 3/4 or 6/8.",
+    "volume": "Soft to moderate, with gentle swells.",
+    "key": "Major keys with minor undertones, like F major shifting to D minor."
+  },
+  {
+    "name": "Serenity",
+    "description": "Gentle, harmonious music can bring a sense of peace and calm.",
+    "instrumentation": "Soft strings, flutes, and harp for soothing textures.",
+    "tempo": "Slow; Adagio in 4/4 or 6/8.",
+    "volume": "Consistently soft, with gentle dynamics.",
+    "key": "Major keys, often C major or F major."
+  },
+  {
+    "name": "Melancholy",
+    "description": "A deep, reflective sadness often associated with slower tempos and minor keys.",
+    "instrumentation": "Solo piano or violin, low strings, subtle woodwinds.",
+    "tempo": "Slow; Largo or Adagio in 4/4.",
+    "volume": "Soft to moderate, with occasional climaxes.",
+    "key": "Minor keys, often E minor or G minor."
+  },
+  {
+    "name": "Triumph",
+    "description": "Overcoming adversity, expressed in powerful, victorious themes.",
+    "instrumentation": "Full orchestra with emphasis on brass and percussion.",
+    "tempo": "Fast; Allegro or Maestoso in 4/4.",
+    "volume": "Starts moderate and builds to a loud, resounding climax.",
+    "key": "Major keys, often C major or Eb major."
+  },
+  {
+    "name": "Awe",
+    "description": "Majestic or expansive music can instill a sense of wonder or reverence.",
+    "instrumentation": "Full orchestra with strong brass and string sections.",
+    "tempo": "Slow to moderate; Andante or Maestoso in 4/4.",
+    "volume": "Dynamic, with soft beginnings and grand crescendos.",
+    "key": "Major keys, often Bb major or D major."
+  },
+  {
+    "name": "Curiosity",
+    "description": "Experimental or unconventional music can intrigue and stimulate.",
+    "instrumentation": "Unusual combinations like pizzicato strings, solo clarinet, and percussion.",
+    "tempo": "Varied; Alternates between slow and fast; often free-form.",
+    "volume": "Soft with sudden dynamic shifts.",
+    "key": "Atonal or ambiguous keys, with unexpected chord progressions."
+  },
+  {
+    "name": "Connection",
+    "description": "Certain pieces can make us feel part of something greater.",
+    "instrumentation": "Rich strings, choral voices, and unified brass sections.",
+    "tempo": "Moderate; Andante or Moderato in 4/4.",
+    "volume": "Starts soft and swells to a grand unison.",
+    "key": "Major keys like F major or Bb major."
+  },
+  {
+    "name": "Mystery",
+    "description": "Ambiguous or atmospheric music can create a sense of the unknown.",
+    "instrumentation": "Low strings, sparse percussion, soft woodwinds like bassoons.",
+    "tempo": "Slow and free; Rubato or Largo in 5/4 or 3/4.",
+    "volume": "Soft with occasional eerie swells.",
+    "key": "Minor keys with chromatic elements, like D minor or A minor."
+  },
+    {
+      "name": "Disgusted",
+      "description": "Music that evokes a sense of revulsion or unease.",
+      "instrumentation": "Dissonant strings, low brass, and irregular percussion.",
+      "tempo": "Slow to moderate; irregular beats in 4/4 or 5/4.",
+      "volume": "Soft with sudden jarring crescendos.",
+      "key": "Dissonant minor keys, with chromatic and tritone intervals."
+    },
+    {
+      "name": "Horrified",
+      "description": "Music that captures fear and shock at something dreadful.",
+      "instrumentation": "Shrieking violins, pounding percussion, and unsettling woodwinds.",
+      "tempo": "Fast and frantic; Presto in irregular time signatures.",
+      "volume": "Starts soft, builds rapidly to loud climaxes.",
+      "key": "Atonal or minor keys, with sharp dissonances."
+    },
+    {
+      "name": "Terror",
+      "description": "Music that evokes a paralyzing sense of fear.",
+      "instrumentation": "Low, rumbling strings, eerie brass, and dissonant high-pitched tones.",
+      "tempo": "Very slow; Largo or unpredictable tempo shifts.",
+      "volume": "Soft with sudden, piercing spikes in volume.",
+      "key": "Chromatic scales and unresolved minor chords."
+    },
+    {
+      "name": "Apocalyptic",
+      "description": "Music that conveys the end of the world or catastrophic events.",
+      "instrumentation": "Heavy percussion, distorted brass, and ominous choir.",
+      "tempo": "Slow and relentless; Moderato in 4/4.",
+      "volume": "Consistently loud, with overwhelming climaxes.",
+      "key": "Minor keys, often D minor or C minor."
+    },
+    {
+      "name": "Sensual",
+      "description": "Music that evokes intimacy and allure.",
+      "instrumentation": "Smooth saxophone, soft strings, and gentle piano.",
+      "tempo": "Slow; Adagio in 4/4 with a gentle swing rhythm.",
+      "volume": "Soft and consistent, with subtle dynamic changes.",
+      "key": "Major keys, often Bb major or Eb major."
+    },
+    {
+      "name": "Ecstatic",
+      "description": "Music that captures overwhelming joy and excitement.",
+      "instrumentation": "Soaring strings, bright brass, and energetic percussion.",
+      "tempo": "Very fast; Presto or Allegro in 4/4.",
+      "volume": "Loud throughout, with bursts of extreme dynamics.",
+      "key": "Major keys, often C major or A major."
+    },
+    {
+      "name": "Cruel",
+      "description": "Music that feels harsh, cold, and unrelenting.",
+      "instrumentation": "Piercing strings, harsh brass, and sharp percussion.",
+      "tempo": "Moderate; Andante in 4/4 with abrupt stops.",
+      "volume": "Loud with jarring drops to silence.",
+      "key": "Minor keys, often G minor or F# minor."
+    },
+    {
+      "name": "Hyperfocused",
+      "description": "Music that captures intense concentration and precision.",
+      "instrumentation": "Minimalist piano, repetitive strings, and steady percussion.",
+      "tempo": "Moderate; Allegretto in 6/8 or 4/4 with a steady pulse.",
+      "volume": "Soft to moderate, consistent dynamics.",
+      "key": "Major or minor keys with repetitive motifs, like D major or A minor."
+    },
+    {
+      "name": "Unfocused",
+      "description": "Music that feels wandering and aimless.",
+      "instrumentation": "Ethereal synths, ambient strings, and sparse percussion.",
+      "tempo": "Slow and irregular; Rubato with no clear time signature.",
+      "volume": "Soft and subdued, with occasional swells.",
+      "key": "Atonal or ambiguous keys."
+    },
+    {
+      "name": "Chaotic",
+      "description": "Music that feels disordered and unpredictable.",
+      "instrumentation": "Discordant brass, erratic percussion, and frenetic strings.",
+      "tempo": "Fast and irregular; free time or alternating meters.",
+      "volume": "Wild fluctuations between soft and loud.",
+      "key": "Atonal or frequent key changes."
+    },
+    {
+      "name": "Walking / Ambling",
+      "description": "Music that evokes a casual stroll or leisurely pace.",
+      "instrumentation": "Light woodwinds, pizzicato strings, and soft percussion.",
+      "tempo": "Moderate; Andante in 6/8 or 4/4 with a lilting rhythm.",
+      "volume": "Moderate and steady dynamics.",
+      "key": "Major keys, often F major or G major."
+    },
+    {
+      "name": "Running Scared",
+      "description": "Music that conveys frantic escape and fear.",
+      "instrumentation": "Fast strings, driving percussion, and eerie brass.",
+      "tempo": "Very fast; Presto in 6/8 or 4/4.",
+      "volume": "Soft start, building to loud, relentless intensity.",
+      "key": "Minor keys, often E minor or G minor."
+    },
+    {
+      "name": "Running Towards Something",
+      "description": "Music that captures determined forward motion and anticipation.",
+      "instrumentation": "Soaring brass, steady percussion, and uplifting strings.",
+      "tempo": "Fast; Allegro in 4/4.",
+      "volume": "Starts soft and swells to triumphant climaxes.",
+      "key": "Major keys, often C major or D major."
+    },
+    {
+      "name": "Heroic",
+      "description": "Music that conveys bravery and triumph.",
+      "instrumentation": "Bold brass, powerful strings, and dramatic percussion.",
+      "tempo": "Moderate to fast; Maestoso in 4/4.",
+      "volume": "Loud and steady, with soaring peaks.",
+      "key": "Major keys, often Bb major or E major."
+    },
+    {
+      "name": "Stable",
+      "description": "Music that feels grounded and consistent.",
+      "instrumentation": "Balanced strings, soft piano, and gentle percussion.",
+      "tempo": "Moderate; Andante in 4/4.",
+      "volume": "Soft to moderate, steady dynamics.",
+      "key": "Major keys, often C major or F major."
+    },
+    {
+      "name": "Bored",
+      "description": "Music that feels monotonous and unengaging.",
+      "instrumentation": "Minimalist piano, repetitive strings, and subdued percussion.",
+      "tempo": "Slow; Largo in 4/4.",
+      "volume": "Soft and consistent.",
+      "key": "Minor keys with repetitive motifs, like E minor."
+    },
+    {
+      "name": "Hungry",
+      "description": "Music that feels yearning and restless.",
+      "instrumentation": "Low strings, moody woodwinds, and sparse percussion.",
+      "tempo": "Moderate; Andante in 3/4 or 4/4.",
+      "volume": "Soft with occasional swells.",
+      "key": "Minor keys, often A minor or G minor."
+    },
+    {
+      "name": "Nauseous",
+      "description": "Music that feels uneasy and disorienting.",
+      "instrumentation": "Sliding strings, irregular percussion, and warped synths.",
+      "tempo": "Slow; Rubato with irregular rhythms.",
+      "volume": "Soft with jarring dynamic changes.",
+      "key": "Atonal or ambiguous minor keys."
+    },
+    {
+      "name": "Tense",
+      "description": "Music that builds suspense and unease.",
+      "instrumentation": "Tremolo strings, low brass, and pulsing percussion.",
+      "tempo": "Moderate; Allegretto in 4/4 with a driving rhythm.",
+      "volume": "Soft, gradually building to loud climaxes.",
+      "key": "Minor keys, often D minor or B minor."
+    },
+    {
+      "name": "Awkward",
+      "description": "Music that feels uncomfortable or clumsy.",
+      "instrumentation": "Offbeat piano, quirky woodwinds, and uneven percussion.",
+      "tempo": "Irregular; shifts between slow and moderate in 5/4 or 7/8.",
+      "volume": "Soft to moderate, with abrupt changes.",
+      "key": "Minor keys with unexpected dissonances."
+    }  
+]
